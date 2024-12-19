@@ -65,6 +65,10 @@ After starting the script, you’ll see a menu with the following options:
 When connected to a database, the following commands are available:
 
 #### Table Commands:
+- **SHOW Table**
+  ```sql
+  SHOW TABLES;
+  ```
 - **Create Table**
   ```sql
   CREATE TABLE table_name (column1:datatype, column2:datatype PRIMARY KEY, ...);
