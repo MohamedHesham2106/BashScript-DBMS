@@ -83,12 +83,12 @@ When connected to a database, the following commands are available:
   INSERT INTO users (id, name, salary, dob) VALUES (1, 'Alice', 50000.00, '1990-01-01');
   ```
 
-- **Select Data**
-  - Select all columns:
+- **Select Data**<br/><br/>
+  Select all columns:
     ```sql
     SELECT * FROM table_name;
     ```
-  - Select specific columns:
+  Select specific columns:
     ```sql
     SELECT column1, column2 FROM table_name;
     ```
