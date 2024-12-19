@@ -663,7 +663,6 @@ function delete_from_table() {
         fi
 
         # Check if the row matches the WHERE condition
-        echo "Checking WHERE clause: ${row_data[$((where_index - 1))]} == $where_value" # Debug
         if [[ "${row_data[$((where_index - 1))]}" == "$where_value" ]]; then
             deleted=true
             continue
