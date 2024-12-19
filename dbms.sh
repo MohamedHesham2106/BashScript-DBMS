@@ -136,8 +136,8 @@ function table_menu() {
     DB_DIR=$1
     echo "Here are the commands you can use:"
     echo "1. CREATE TABLE <table_name> (<column1>:<type>, <column2>:<type>, ...)"
-    echo "   Example: CREATE TABLE users (id:INTEGER PRIMARY KEY, name:TEXT, salary:FLOAT, dob:DATE)"
-    echo -e "   \033[0;31mSupported Datatypes: INTEGER, TEXT, FLOAT, DATE(YYYY-MM-DD) format only.\033[0m"
+    echo "   Example: CREATE TABLE users (id:INTEGER PRIMARY KEY, name:TEXT, salary:DECIMAL, dob:DATE)"
+    echo -e "   \033[0;31mSupported Datatypes: INTEGER, TEXT, DECIMAL, DATE(YYYY-MM-DD) format only.\033[0m"
     echo ""
     echo "2. INSERT INTO <table_name> VALUES (<value1>, <value2>, ...)"
     echo "   Example: INSERT INTO users VALUES (Alice, 30, ...)"
@@ -217,8 +217,8 @@ function create_table() {
             fi
 
             # Validate datatype
-            if [[ ! "$datatype" =~ ^(INTEGER|FLOAT|TEXT|DATE)$ ]]; then
-                echo "Error: Invalid datatype '$datatype'. Supported types: INTEGER, FLOAT, TEXT, DATE, VARCHAR(n)."
+            if [[ ! "$datatype" =~ ^(INTEGER|DECIMAL|TEXT|DATE)$ ]]; then
+                echo "Error: Invalid datatype '$datatype'. Supported types: INTEGER, DECIMAL, TEXT, DATE, VARCHAR(n)."
                 return
             fi
 
@@ -337,9 +337,9 @@ function insert_into_table() {
                     return
                 fi
                 ;;
-            FLOAT)
+            DECIMAL)
                 if ! [[ "$value" =~ ^-?[0-9]+(\.[0-9]+)?$ ]]; then
-                    echo "Error: Value '$value' is not a valid FLOAT for column '$column'."
+                    echo "Error: Value '$value' is not a valid DECIMAL for column '$column'."
                     return
                 fi
                 ;;
