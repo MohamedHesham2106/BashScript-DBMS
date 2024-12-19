@@ -9,7 +9,7 @@ This project is a lightweight **Relational Database Management System (DBMS)** i
   - Create tables with column definitions and primary keys.  
   - Insert, select, update, and delete data with SQL-like syntax.  
 - **Supported Data Types**:  
-  - `INTEGER`, `FLOAT`, `TEXT`, `DATE` (in `YYYY-MM-DD` format).  
+  - `INTEGER`, `DECIMAL`, `TEXT`, `DATE` (in `YYYY-MM-DD` format).  
 - **Command Validation**:  
   - Input commands are validated to ensure correctness before execution.  
 
@@ -71,7 +71,7 @@ When connected to a database, the following commands are available:
   ```
   Example:
   ```sql
-  CREATE TABLE users (id:INTEGER PRIMARY KEY, name:TEXT, salary:FLOAT, dob:DATE);
+  CREATE TABLE users (id:INTEGER PRIMARY KEY, name:TEXT, salary:DECIMAL, dob:DATE);
   ```
 
 - **Insert Data**
