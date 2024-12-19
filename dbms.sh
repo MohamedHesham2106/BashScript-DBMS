@@ -7,6 +7,14 @@ mkdir -p "$BASE_PATH"
 
 function get_regex() {
     case $1 in
+    SHOW)
+
+        if [[ $2 =~ ^SHOW[[:space:]]+TABLES[[:space:]]*\;?$ ]]; then
+            return 1
+        else
+            return 0
+        fi
+        ;;
     CREATE)
         if [[ $2 =~ ^CREATE\ TABLE\ ([a-zA-Z0-9_]+)\ \((.*)\)[[:space:]]*(;)?$ ]]; then
             return 1
@@ -70,6 +78,10 @@ function list_databases() {
     echo "Databases:"
     if [ -z "$(ls -A "$BASE_PATH")" ]; then
         echo "No Databases Created Yet"
+        read -p "Press any key to continue..."
+        clear
+        main
+        return
     else
         ls "$BASE_PATH"
     fi
@@ -151,7 +163,10 @@ function table_menu() {
     echo "5. UPDATE <table_name> SET <column1=value1, column2=value2, ...> WHERE <condition>"
     echo "   Example: UPDATE users SET name=Bob, age=25 WHERE id=1"
     echo ""
-    echo "6. Go back to the main menu"
+    echo "6. SHOW TABLES"
+    echo "   Type 'SHOW TABLE' to show all tables in this Database"
+    echo ""
+    echo "7. Go back to the main menu"
     echo "   Type 'EXIT' to exit main menu"
     echo ""
     while true; do
@@ -159,15 +174,33 @@ function table_menu() {
 
         # Check for the command type based on the input
         case "$sql_query" in
+        SHOW\ TABLES*) show_tables "$sql_query" ;;
         CREATE\ TABLE*) create_table "$sql_query" ;;
         INSERT\ INTO*) insert_into_table "$sql_query" ;;
         SELECT\ *\ FROM\ *) select_from_table "$sql_query" ;;
         UPDATE*) update_table "$sql_query" ;;
         DELETE*) delete_from_table "$sql_query" ;;
-        EXIT) main_menu ;;
+        EXIT) clear; main; return ;;
         *) echo "Invalid command. Please try again." ;;
         esac
     done
+}
+
+#SHOW TABLES
+function show_tables() {
+    get_regex SHOW "$1"
+    if [ $? -eq 1 ]; then
+        echo "Tables:"
+        echo "----------"
+        if [ -z "$(ls -A "$DB_DIR")" ]; then
+            echo "No tables found."
+        else
+            ls "$DB_DIR"
+        fi
+    else
+        echo "Invalid SHOW TABLES command. Ensure the format is: SHOW TABLES;"
+    fi
+
 }
 
 #CREATE TABLES
